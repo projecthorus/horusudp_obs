@@ -7,7 +7,6 @@
 #
 import traceback
 import logging
-import fastkml
 import numpy as np
 from .atmosphere import *
 from .earthmaths import position_info
