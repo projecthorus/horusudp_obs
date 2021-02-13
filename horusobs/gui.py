@@ -28,14 +28,14 @@ from queue import Queue
 parser = argparse.ArgumentParser(description="Project Horus OBS Overlay Utility", formatter_class=argparse.ArgumentDefaultsHelpFormatter)
 parser.add_argument("--callsign", type=str, default="HORUSBINARY", help="Callsign Filter (Default: HORUSBINARY)")
 parser.add_argument("--fontsize", type=int, default=24, help="Font Size (Default: 24)")
-parser.add_argument("--white", action='store_true', default=False, help="White Text")
+parser.add_argument("--black", action='store_true', default=False, help="Black Text (Default is White)")
 args = parser.parse_args()
 
 # RX Message queue to avoid threading issues.
 rxqueue = Queue(16)
 
 callsignFilter = args.callsign
-white_text = args.white
+black_text = args.black
 max_alt = 0
 
 # PyQt Window Setup
@@ -63,7 +63,7 @@ mainwin = QtWidgets.QMainWindow()
 # Finalise and show the window
 mainwin.setWindowTitle("Horus-OBS")
 mainwin.setCentralWidget(main_widget)
-mainwin.resize(600,100)
+mainwin.resize(600,50)
 mainwin.show()
 
 
@@ -98,7 +98,7 @@ def update_payload_stats(packet):
         _text = packet_dt.strftime("%Y-%m-%d %H:%M:%SZ ")
         _text += f"{_lat:.5f}, {_lon:.5f}, {_alt} m ({max_alt} m)"
 
-        if white_text:
+        if not black_text:
             _text = "<font color='White'>" + _text + "</font>"
 
         mainLabel.setText(_text)

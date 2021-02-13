@@ -25,4 +25,4 @@ $ python -m horusobs.gui --callsign HORUSBINARY
 ```
 
 ### Using with OBS-Studio
-TBD
+Use a Window Source with a Green Chroma Key.
