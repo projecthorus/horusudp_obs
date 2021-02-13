@@ -20,12 +20,20 @@ from threading import Thread
 from PyQt5 import QtGui, QtCore, QtWidgets
 from datetime import datetime
 import socket,json,sys,traceback,time,math
+import argparse
 from queue import Queue
+
+
+# Read command-line arguments
+parser = argparse.ArgumentParser(description="Project Horus OBS Overlay Utility", formatter_class=argparse.ArgumentDefaultsHelpFormatter)
+parser.add_argument("--callsign", type=str, default="HORUSBINARY", help="Callsign Filter (Default: HORUSBINARY)")
+parser.add_argument("--fontsize", type=int, default=24, help="Font Size (Default: 24)")
+args = parser.parse_args()
 
 # RX Message queue to avoid threading issues.
 rxqueue = Queue(16)
 
-callsignFilter = "HORUSBINARY"
+callsignFilter = args.callsign
 
 max_alt = 0
 
@@ -40,7 +48,7 @@ main_widget.setStyleSheet("background-color: green;")
 layout = QtWidgets.QGridLayout()
 main_widget.setLayout(layout)
 # Create Widgets
-data_font_size = 32
+data_font_size = args.fontsize
 mainLabel = QtWidgets.QLabel("YYYY-MM-DD HH:MM:SS ---.-----, ----.-----, -----m (-----m)")
 mainLabel.setFont(QtGui.QFont("Courier New", data_font_size, QtGui.QFont.Bold))
 
